@@ -13,47 +13,63 @@
 </head>
 <body>
 
-<nav>
- <div id="header">
-   <div id="header_text">PaintersTree</div>
- </div>
-</nav>
+    <nav>
+     <div id="header">
+       <div id="header_text">PaintersTree</div>
+     </div>
+    </nav>
 
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-12">
-      <div id="description">
-      <h3>Описание:</h3>
-      <p>Данные графики отражают частоту совместных упоминаний российиских художниковв русской и англйиской версиях Wikipedia. </p>
-      <p>Каждый художник отобраается как отдельный узел графа, а каждой ребро между двумя узлами и его длина обозначает насколько часто эти два художника упоминабтся вместе в однйо статье. При этом чем короче ребро, тем больше частота.</p>
-      <div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-lg-6 col-sm-12 ">
-      <h4>Данные из русской Википедии</h4>
-      
-      <div class="row slider">
-        <p style="float: left;">Макс. число художников: </p>
-        <input id="ru_slider" type="range" min=5 max=1 step=1 />
-        <div class="slider_value" id="ru_value"></div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div id="description">
+          <h3>Описание:</h3>
+          <p>Данные графики отражают частоту совместных упоминаний российиских художниковв русской и англйиской версиях Wikipedia. </p>
+          <p>Каждый художник отобраается как отдельный узел графа, а каждой ребро между двумя узлами и его длина обозначает насколько часто эти два художника упоминабтся вместе в однйо статье. При этом чем короче ребро, тем больше частота.</p>
+          <div>
+        </div>
       </div>
-      
-      <div id="russian_graph"></div>
+      <div class="row">
+        <div class="col-lg-6 col-sm-12 ">
+          <h4>Данные из русской Википедии</h4>
+          
+          <div class="row slider">
+            <p style="float: left;">Макс. число художников: </p>
+            <input id="ru_slider" type="range" min=5 max=1 step=1 />
+            <div class="slider_value" id="ru_value"></div>
+          </div>
+          
+          <div id="russian_graph"></div>
+        </div>
+        <div class=" col-lg-6 col-sm-12 ">
+          <h4>Данные из английской Википедии</h4>
+         
+          <div class="row slider">
+            <p style="float: left;">Макс. число художников: </p>
+            <input id="en_slider" type="range" min=5 max=1 step=1 />
+            <div class="slider_value" id="en_value"></div>
+          </div>
+
+          <div id="english_graph"></div>
+        </div>
+      </div>
     </div>
-    <div class=" col-lg-6 col-sm-12 ">
-      <h4>Данные из английской Википедии</h4>
-     
-      <div class="row slider">
-        <p style="float: left;">Макс. число художников: </p>
-        <input id="en_slider" type="range" min=5 max=1 step=1 />
-        <div class="slider_value" id="en_value"></div>
+
+    <div class="row">
+        <div class="col-md-12">
+          <div id="description_large">
+          <h3>Как это работет?</h3>
+              <p>Представленные выше графы были построены при помощи библиотеки d3.js. Для сбора информации о частоте совместной 
+              встречаемости художников из небольшой части английской и русской версий Википедии были извлечены
+              все упоминания имен художников из заранее подготовленного списка. Список имен художников на русском 
+              языке и соответствующих им переводов на англйиский был извлечен автоматичсеки из базы знаний DBpedia.
+              </p>
+              <p>Для подсчета длин ребер между узлами были взяты обратные значения от относительных частот совместной встречаемости художников.
+              Затем для того, чтобы немного нормализовать длины ребер, каждое значение было разделено на его логарифм.</p>
+          <div>
+        </div>
       </div>
 
-      <div id="english_graph"></div>
-    </div>
-  </div>
-</div>
 </body>
 <script src="scripts.js"></script>
 </html>

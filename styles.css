@@ -44,7 +44,7 @@ height: 50px;
     /* text-transform: capitalize; */
     padding: 8px 0px 0 23px;
 }
-#description {
+#description, #description_large {
     margin: 15px 0px 28px 0;
     font-size: 12pt;
     padding: 0px 14px 15px 19px;
@@ -52,6 +52,12 @@ height: 50px;
     border-radius: 2px;
     border: solid 1px rgba(128, 128, 128, 0.16);
     box-shadow: 1px 1px 4px -1px #AFABAB;
+}
+
+#description_large {
+    margin-left: 18px;
+    margin-right: 20px;
+    margin-top: -17px;
 }
 
 .col-lg-6 h4 {
