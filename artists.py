@@ -73,9 +73,19 @@ class ArtistsExtractor:
             out.write(json.dumps(self.co_occurrences_counts, ensure_ascii=False))
 
 class EnglishExtractor(ArtistsExtractor):
-    def __init__(self, wiki_dump_files, artist_names, translation_dict):
+    def __init__(self, wiki_dump_files, artist_names, translation_dict, counts_dict=None):
         super().__init__(wiki_dump_files, artist_names)
         self.translation_dict = translation_dict
+        self.counts_dict = counts_dict
+        self.add_existing_counts()
+
+    def add_existing_counts(self):
+        if self.counts_dict is not None:
+            with open(self.counts_dict, 'r', encoding='utf-8') as f:
+                counts = json.loads(f.read())
+                for artist1, other in counts.items():
+                    for artist2, count in other.items():
+                        self.co_occurrences_counts[artist1][artist2] = count
 
     def texts(self):
         for dump in self.wiki_dump_file:
@@ -124,18 +134,14 @@ if __name__ == '__main__':
     english_names = [painter.split()[-1].lower() for painter in list(painters_df['enlabel'])]
     translation_dict = {}
     for russian, english in zip(russian_names, english_names):
-        translation_dict[english] = russian
-    # pp(translation_dict)    
-    files = ['/media/dmitri/Data/wiki_dump/current4.xml',
-             '/media/dmitri/Data/wiki_dump/current5.xml',
-             '/media/dmitri/Data/wiki_dump/current6.xml',
-             '/media/dmitri/Data/wiki_dump/current7.xml',
-             '/media/dmitri/Data/wiki_dump/current8.xml',
-             '/media/dmitri/Data/wiki_dump/current1.xml',
-             '/media/dmitri/Data/wiki_dump/current2.xml',
-             '/media/dmitri/Data/wiki_dump/current3.xml']
-    test = EnglishExtractor(files, english_names, translation_dict)
-    test.count_co_occurrences('english_counts.json')
+        translation_dict[english] = russian  
+    files = ['/media/dmitri/Data/wiki_dump/current9.xml',
+             '/media/dmitri/Data/wiki_dump/current10.xml',
+             '/media/dmitri/Data/wiki_dump/current11.xml',
+             '/media/dmitri/Data/wiki_dump/current12.xml',
+             '/media/dmitri/Data/wiki_dump/current13.xml']
+    test = EnglishExtractor(files, english_names, translation_dict, '/home/dmitri/HSE/ArtistsTree/english_counts.json')
+    test.count_co_occurrences('english_counts_big.json')
 
 
 

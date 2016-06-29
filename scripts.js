@@ -1,5 +1,5 @@
-slider('#en_slider', '#english_graph');
-slider('#ru_slider', '#russian_graph');
+slider('#en_slider', '#english_graph', english_all_links);
+slider('#ru_slider', '#russian_graph', all_links);
 
 $('#ru_slider').attr({"max": painters.length, "value": Math.round(painters.length/2)});
 $('#en_slider').attr({"max": painters.length, "value": Math.round(painters.length/2)});
@@ -10,12 +10,11 @@ $('#en_value').html(Math.round(painters.length/2));
 var painters_number = document.getElementById('ru_slider').value;
 var painters_to_keep = painters.slice(0, painters_number);
 var old, links;
-run_d3('#russian_graph');
-run_d3('#english_graph');
+run_d3('#russian_graph', all_links);
+run_d3('#english_graph', english_all_links);
 
-// $('#russian_graph').on()css({'zoom'})
 
-function slider(slider_id, graph_id) {
+function slider(slider_id, graph_id, links_object) {
 $(slider_id).click(function() {
         old = painters_number;
         painters_number = this.value;
@@ -24,21 +23,21 @@ $(slider_id).click(function() {
           painters_to_keep = painters.slice(0, painters_number);
           if (typeof force != 'undefined') {force.remove(); svg.remove}; 
           $(graph_id).html('');
-          run_d3(graph_id);
+          run_d3(graph_id, links_object);
         }
         
     });
 }
 
-function run_d3(placeholder) {
+function run_d3(placeholder, links_object) {
     console.log('call')
     console.log(painters_to_keep)
     links = [];
-    for (var i=0; i < all_links.length; i++) {
-        var source = all_links[i]['source'];
-        var target = all_links[i]['target'];
-        var weight = all_links[i]['weight'];
-        console.log('object', all_links[i]);
+    for (var i=0; i < links_object.length; i++) {
+        var source = links_object[i]['source'];
+        var target = links_object[i]['target'];
+        var weight = links_object[i]['weight'];
+        console.log('object', links_object[i]);
         console.log('for loop', source, target);
         if (painters_to_keep.includes(source) &&  
             painters_to_keep.includes(target)) {
@@ -65,13 +64,8 @@ function run_d3(placeholder) {
         .links(links)
         .size([width, height])
         .linkDistance(function(d) {
-          // if (d.weight < 0.001) {return Math.log2(1/d.weight) * 50;}
-          // else  if (d.weight < 0.0001) {return Math.log(1/d.weight) * 50;}
-          // else {return 1/d.weight ;}
           return ((1/d.weight) / (Math.log(1/d.weight))) + 150;
-          // return Math.log(1/d.weight);
         })
-        // .linkDistance(300)
         .charge(-300)
         .on("tick", tick)
         .start();
