@@ -35,7 +35,7 @@ class Visualiser:
 if __name__ == '__main__':
     painters_df = pandas.read_table('painters.tsv')
     russian_names = [painter.split(', ')[0].lower() for painter in list(painters_df['rulabel'])]
-    test = Visualiser('english_counts.json')
+    test = Visualiser('english_counts_big.json')
     test.make_json(set(russian_names[:100]), 'english_links.json')
     test = Visualiser('russian_counts.json')
     test.make_json(set(russian_names[:100]), 'links.json')
